@@ -32,8 +32,8 @@ from tensor2tensor.models import transformer
 from tensor2tensor.utils import registry
 import tensorflow as tf
 
-if sys.version_info.major == 2:
-  from magenta.models.score2perf import datagen_beam  # pylint:disable=g-import-not-at-top,ungrouped-imports
+#if sys.version_info.major == 2:
+from magenta.models.score2perf import datagen_beam  # pylint:disable=g-import-not-at-top,ungrouped-imports
 
 # TODO(iansimon): figure out the best way not to hard-code these constants
 
@@ -44,9 +44,13 @@ MAX_PITCH = 108
 
 # pylint: disable=line-too-long
 MAESTRO_TFRECORD_PATHS = {
+    #'train': 'gs://magentadata/datasets/maestro/v1.0.0/maestro-v1.0.0_train.tfrecord',
     'train': 'gs://touhoudataset/train.tfrecord',
     'dev': 'gs://touhoudataset/valid.tfrecord',
     'test': 'gs://touhoudataset/test.tfrecord'
+    #'train': 'C:/Users/conspiracy2/Documents/music comp/composition suite/midis/train.tfrecord',
+    #'dev': 'C:/Users/conspiracy2/Documents/music comp/composition suite/midis/valid.tfrecord',
+    #'test': 'C:/Users/conspiracy2/Documents/music comp/composition suite/midis/test.tfrecord'
 }
 # pylint: enable=line-too-long
 

@@ -163,7 +163,10 @@ class ExtractExamplesDoFn(beam.DoFn):
     # Seed random number generator based on key so that hop times are
     # deterministic.
     key, ns_str = kv
-    m = hashlib.md5(key)
+    print(key)
+    print("********************************************")
+    #m = hashlib.md5(key)
+    m = hashlib.md5(key.encode('utf-8'))
     random.seed(int(m.hexdigest(), 16))
 
     # Deserialize NoteSequence proto.
@@ -406,6 +409,8 @@ def generate_examples(input_transform, output_dir, problem_name, splits,
       os.path.join(output_dir, '%s-%s.tfrecord' % (problem_name, split_name))
       for split_name in split_names
   ]
+  print("output filenames \n")
+  print(output_filenames)
   for split_name, output_filename in zip(split_names, output_filenames):
     existing_output_filenames = tf.gfile.Glob(output_filename + '*')
     if existing_output_filenames:
@@ -454,5 +459,7 @@ def generate_examples(input_transform, output_dir, problem_name, splits,
               absolute_timing,
               random_crop_length))
       s |= 'shuffle_%s' % split_name >> beam.Reshuffle()
+      print(output_filename)
+      print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
       s |= 'write_%s' % split_name >> beam.io.WriteToTFRecord(
           output_filename, coder=beam.coders.ProtoCoder(tf.train.Example))
